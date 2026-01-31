@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Import map for local development without Vite -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#2563eb">
@@ -11,7 +13,14 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Seima Showroom Scanner</title>
   <link rel="icon" type="image/png" href="/assets/seima-logo-Ij4HpjUg.png">
-  <script type="module" crossorigin src="/assets/main-BJewNbx8.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "@seima/core": "/core/js/index.js"
+    }
+  }
+  </script>
+  <script type="module" crossorigin src="/assets/main--B3ACBsw.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/main-C8gkzO0L.css">
 </head>
 <body>
@@ -125,21 +134,48 @@
     <div class="modal-content" style="max-width: 500px;">
       <h3 style="margin: 0 0 20px 0; color: #333;">Settings</h3>
       
-      <p style="margin-bottom: 16px; color: #666; font-size: 0.9rem;">Your contact details will be included in the PDF and receive a copy of the email.</p>
+      <p class="section-description" style="margin-bottom: 16px; color: #666; font-size: 0.9rem;">Your contact details will be included in the PDF and receive a copy of the email.</p>
       
-      <div class="form-field">
-        <label class="form-label">Name *</label>
-        <input type="text" id="staff-name" class="form-input" placeholder="Enter your full name">
+      <!-- Profile section when logged in -->
+      <div id="logged-in-profile-section" style="display: none;">
+        <div class="profile-header" style="margin-bottom: 16px; padding: 12px; background: #f0f9ff; border-radius: 8px; border: 1px solid #bae6fd;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div id="profile-avatar" style="width: 40px; height: 40px; border-radius: 50%; background: #0284c7; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px;">JS</div>
+              <div>
+                <div id="profile-display-name" style="font-weight: 600; color: #0c4a6e;"></div>
+                <div id="profile-display-email" style="font-size: 0.85rem; color: #0369a1;"></div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <button id="edit-profile-btn" class="secondary-btn" style="flex: 1; padding: 8px 12px; font-size: 0.85rem;">Edit Profile</button>
+            <button id="change-password-btn" class="secondary-btn" style="flex: 1; padding: 8px 12px; font-size: 0.85rem;">Change Password</button>
+          </div>
+        </div>
       </div>
       
-      <div class="form-field">
-        <label class="form-label">Mobile Number *</label>
-        <input type="tel" id="staff-mobile" class="form-input" placeholder="Enter your mobile number">
-      </div>
-      
-      <div class="form-field">
-        <label class="form-label">Email Address *</label>
-        <input type="email" id="staff-email" class="form-input" placeholder="Enter your email address">
+      <!-- Editable contact fields -->
+      <div id="contact-fields-section">
+        <div class="form-field">
+          <label class="form-label">Name *</label>
+          <input type="text" id="staff-name" class="form-input" placeholder="Enter your full name">
+        </div>
+        
+        <div class="form-field">
+          <label class="form-label">Position</label>
+          <input type="text" id="staff-position" class="form-input" placeholder="e.g. Sales Representative">
+        </div>
+        
+        <div class="form-field">
+          <label class="form-label">Phone *</label>
+          <input type="tel" id="staff-mobile" class="form-input" placeholder="Enter your phone number">
+        </div>
+        
+        <div class="form-field">
+          <label class="form-label">Email *</label>
+          <input type="email" id="staff-email" class="form-input" placeholder="Enter your email address">
+        </div>
       </div>
 
       <div id="staff-details-status" class="status-message" style="display: none;">
