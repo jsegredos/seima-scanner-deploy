@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Seima Showroom Scanner</title>
+  <link rel="icon" type="image/png" href="/assets/seima-logo-Ij4HpjUg.png">
+  <script type="module" crossorigin src="/assets/main-z0f4M0b3.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-C8gkzO0L.css">
+</head>
+<body>
+  <div class="welcome-container">
+    <!-- Settings icon in top-right -->
+    <button id="settings-btn" class="settings-icon-btn" title="Settings">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+    </button>
+
+    <!-- Main content area -->
+    <div class="home-main-content">
+      <img src="/assets/seima-logo-Ij4HpjUg.png" alt="SEIMA Logo" class="logo">
+      <h1 class="tagline">Product Selector</h1>
+      <div class="home-buttons">
+        <button id="start-btn" class="primary-btn">Select Products</button>
+        <button id="view-selection-btn" class="primary-btn">View Selection</button>
+        <!-- Load Previous Selection - Staff Mode Only -->
+        <button id="load-selection-btn" class="load-selection-btn" style="display: none;">Load Previous Selection</button>
+      </div>
+    </div>
+    
+    <!-- Footer buttons -->
+    <div class="home-footer-buttons">
+      <button id="clear-selection-btn" class="clear-selection-btn">Clear Selection</button>
+    </div>
+  </div>
+  <div id="clear-selection-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3 style="margin: 0 0 20px 0; color: #333;">Confirm Clear All</h3>
+      <p style="margin-bottom: 24px; color: #666;">Are you sure you want to clear all product and room selections?</p>
+      <div class="modal-actions">
+        <button id="modal-cancel-btn" class="secondary-btn">Cancel</button>
+        <button id="modal-confirm-btn" class="destructive-primary">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- File Import Modal -->
+  <div id="file-import-modal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width: 600px;">
+      <h3 style="margin: 0 0 20px 0; color: #333;">Import Product File</h3>
+      
+      <!-- Step 1: File Selection -->
+      <div id="file-selection-step">
+        <div id="file-drop-zone" class="file-drop-zone">
+          <p style="margin: 0 0 10px 0; color: #666; font-size: 16px;">Drop CSV or Excel file here or click to browse</p>
+          <p style="margin: 0; color: #999; font-size: 14px;">Supported formats: .csv, .xlsx</p>
+          <input type="file" id="file-input" accept=".csv,.xlsx" style="display: none;">
+        </div>
+        <div id="selected-file-info" class="file-info" style="display: none;">
+          <strong>Selected:</strong> <span id="selected-file-name"></span>
+        </div>
+        <div class="modal-actions">
+          <button id="import-cancel-btn" class="secondary-btn">Cancel</button>
+          <button id="import-next-btn" class="primary-btn" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Import Mode Selection -->
+      <div id="import-mode-step" style="display: none;">
+        <p style="margin-bottom: 20px; color: #333;">Choose how to import the data:</p>
+        <div class="import-options">
+          <label class="import-option">
+            <input type="radio" name="import-mode" value="append" checked>
+            <div>
+              <strong>Append</strong> - Add to existing selection (items will be added to "Blank" room)
+            </div>
+          </label>
+          <label class="import-option">
+            <input type="radio" name="import-mode" value="override">
+            <div>
+              <strong>Override</strong> - Replace all existing selections (warning: this will clear everything)
+            </div>
+          </label>
+        </div>
+        <div id="override-warning" class="warning-message" style="display: none;">
+          <strong>Warning:</strong> This will delete all your current product selections and room assignments.
+        </div>
+        <div class="modal-actions">
+          <button id="import-back-btn" class="secondary-btn">Back</button>
+          <button id="import-process-btn" class="primary-btn">Import</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Processing -->
+      <div id="import-processing-step" class="processing-step" style="display: none;">
+        <div class="spinner"></div>
+        <p style="margin: 0; color: #666;">Processing file...</p>
+      </div>
+
+      <!-- Step 4: Results -->
+      <div id="import-results-step" style="display: none;">
+        <h4 style="margin: 0 0 15px 0; color: #059669;">Import Complete</h4>
+        <div id="import-summary" style="margin-bottom: 20px;"></div>
+        <div id="not-found-products" style="display: none;">
+          <h5 style="margin: 20px 0 10px 0; color: #c33;">Products added with placeholder information:</h5>
+          <div id="not-found-list" class="not-found-list"></div>
+        </div>
+        <div class="modal-actions">
+          <button id="import-close-btn" class="primary-btn">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="seima-contact-modal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width: 500px;">
+      <h3 style="margin: 0 0 20px 0; color: #333;">Settings</h3>
+      
+      <p style="margin-bottom: 16px; color: #666; font-size: 0.9rem;">Your contact details will be included in the PDF and receive a copy of the email.</p>
+      
+      <div class="form-field">
+        <label class="form-label">Name *</label>
+        <input type="text" id="staff-name" class="form-input" placeholder="Enter your full name">
+      </div>
+      
+      <div class="form-field">
+        <label class="form-label">Mobile Number *</label>
+        <input type="tel" id="staff-mobile" class="form-input" placeholder="Enter your mobile number">
+      </div>
+      
+      <div class="form-field">
+        <label class="form-label">Email Address *</label>
+        <input type="email" id="staff-email" class="form-input" placeholder="Enter your email address">
+      </div>
+
+      <div id="staff-details-status" class="status-message" style="display: none;">
+        <!-- Status message will be shown here -->
+      </div>
+
+      <div class="modal-actions">
+        <button id="staff-contact-cancel-btn" class="secondary-btn">Cancel</button>
+        <button id="staff-contact-save-btn" class="primary-btn">Save</button>
+      </div>
+      
+      <!-- Staff mode lock - subtle, bottom right -->
+      <div class="settings-lock-container">
+        <button id="staff-mode-lock" class="staff-mode-lock" title="Staff access">
+          <span id="lock-icon">🔒</span>
+        </button>
+        <!-- Code input (hidden by default) -->
+        <div id="staff-code-input-container" class="staff-code-input-container" style="display: none;">
+          <input type="password" id="app-mode-input" class="staff-code-input" placeholder="Code" autocomplete="off" maxlength="20">
+          <button id="staff-code-submit" class="staff-code-submit">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exit Staff Mode Confirmation Modal -->
+  <div id="exit-staff-mode-modal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width: 340px;">
+      <h3 style="margin: 0 0 16px 0; color: #333;">Exit Staff Mode?</h3>
+      <p style="margin-bottom: 20px; color: #666;">Switch back to customer mode?</p>
+      <div class="modal-actions">
+        <button id="exit-staff-cancel-btn" class="secondary-btn">No</button>
+        <button id="exit-staff-confirm-btn" class="primary-btn">Yes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OCR Text Scan Confirmation Modal -->
+  <div id="ocr-confirmation-modal" class="modal" style="display:none;">
+    <div class="modal-content modal-medium">
+      <h3 style="margin: 0 0 20px 0; color: #333;">Text Scan Results</h3>
+      <p style="margin-bottom: 20px; color: #666;">Select products to add to your selection:</p>
+      
+      <div id="ocr-candidates-list" style="margin-bottom: 20px;">
+        <!-- Candidate products will be listed here -->
+      </div>
+      
+      <div id="ocr-no-matches" style="display: none; padding: 20px; text-align: center; color: #666;">
+        <p>No matching products found. Try better lighting or angle.</p>
+      </div>
+      
+      <div class="modal-actions">
+        <button id="ocr-cancel-btn" class="secondary-btn">Cancel</button>
+        <button id="ocr-confirm-btn" class="primary-btn" disabled>Add Selected</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="pdf-spinner" class="pdf-spinner" style="display:none;">
+    <div class="spinner" style="border-top-color: #2563eb;"></div>
+  </div>
+  <!-- Barcode Detection API Polyfill for iOS Safari - Use Skypack CDN with proper CORS -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <!-- Tesseract.js for client-side OCR (Text Scan mode) -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <!-- Shared OCR utilities (classic script for main + worker use) -->
+  <script src="js/ocr-utils.js"></script>
+  
+  <!-- Refactored Services -->
+  
+  <!-- Legacy compatibility modules -->
+  
+  <!-- Selection Recording Configuration -->
+  
+  <!-- Selection Loader (Load Previous Selections) -->
+  
+  <!-- Lead Tracking System -->
+  
+  <!-- Main application -->
+  <script nomodule src="app.js"></script>
+  <div id="version-info" style="position:fixed;bottom:10px;left:0;right:0;text-align:center;font-size:0.98rem;color:#888;z-index:10;cursor:pointer;" onclick="showChangelogModal()">Ver: <span id="version-number">1.0.0</span></div>
+  
+  <!-- Changelog Modal -->
+  <div id="changelog-modal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+      <h3 style="margin: 0 0 20px 0; color: #333; display: flex; justify-content: space-between; align-items: center;">
+        Changelog
+        <button onclick="closeChangelogModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #888;">&times;</button>
+      </h3>
+      
+      <div id="changelog-content">
+        <!-- Changelog content will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load version from version.txt - parse new format (includes timestamp)
+    fetch('version.txt').then(r => r.text()).then(versionText => {
+      const lines = versionText.trim().split('\n');
+      if (lines.length > 0) {
+        // Get the latest version (first line) and extract version number with timestamp
+        const latestLine = lines[0];
+        // Match version number and optional timestamp: "4.0.2" or "4.0.2 (15:03)"
+        const versionMatch = latestLine.match(/^([\d.]+(?:\s*\([^)]+\))?)/);
+        if (versionMatch) {
+          document.getElementById('version-number').textContent = versionMatch[1];
+        }
+      }
+    });
+
+    async function showChangelogModal() {
+      try {
+        const modal = document.getElementById('changelog-modal');
+        const content = document.getElementById('changelog-content');
+        
+        // Fetch and parse version.txt for changelog
+        const response = await fetch('version.txt');
+        const versionText = await response.text();
+        const lines = versionText.trim().split('\n');
+        
+        if (lines.length === 0) {
+          content.innerHTML = '<p>No changelog available.</p>';
+          modal.style.display = 'flex';
+          return;
+        }
+
+        let html = '';
+        lines.forEach(line => {
+          if (line.trim()) {
+            // Parse format: "version - changelog_text"
+            const dashIndex = line.indexOf(' - ');
+            if (dashIndex > 0) {
+              const version = line.substring(0, dashIndex).trim();
+              const changelogText = line.substring(dashIndex + 3).trim();
+              
+              html += `
+                <div style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h4 style="margin: 0; color: #a09484;">v${version}</h4>
+                  </div>
+                  <p style="margin: 10px 0; color: #555; line-height: 1.5;">${changelogText}</p>
+                </div>
+              `;
+            }
+          }
+        });
+        
+        content.innerHTML = html || '<p>No changelog available.</p>';
+        modal.style.display = 'flex';
+      } catch (error) {
+        console.error('Error loading changelog:', error);
+        document.getElementById('changelog-content').innerHTML = '<p style="color: #999;">Error loading changelog.</p>';
+        document.getElementById('changelog-modal').style.display = 'flex';
+      }
+    }
+
+    function closeChangelogModal() {
+      document.getElementById('changelog-modal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', (e) => {
+      const modal = document.getElementById('changelog-modal');
+      if (e.target === modal) {
+        closeChangelogModal();
+      }
+    });
+  </script>
+</body>
+</html> 
