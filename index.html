@@ -20,8 +20,8 @@
     }
   }
   </script>
-  <script type="module" crossorigin src="/assets/main-CZf7kkOi.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/main-C8gkzO0L.css">
+  <script type="module" crossorigin src="/assets/main-CSucaiXO.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-Dug_M_9a.css">
 </head>
 <body>
   <div class="welcome-container">
@@ -47,6 +47,14 @@
     
     <!-- Footer buttons -->
     <div class="home-footer-buttons">
+      <button id="user-guide-btn" class="user-guide-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        User Guide
+      </button>
       <button id="clear-selection-btn" class="clear-selection-btn">Clear Selection</button>
     </div>
   </div>
@@ -134,7 +142,7 @@
     <div class="modal-content" style="max-width: 500px;">
       <h3 style="margin: 0 0 20px 0; color: #333;">Settings</h3>
       
-      <p class="section-description" style="margin-bottom: 16px; color: #666; font-size: 0.9rem;">Your contact details will be included in the PDF and receive a copy of the email.</p>
+      <p class="section-description" style="margin-bottom: 16px; color: #666; font-size: 0.9rem;">These details will be included in the PDF and receive a copy of the email.</p>
       
       <!-- Profile section when logged in -->
       <div id="logged-in-profile-section" style="display: none;">
@@ -348,6 +356,133 @@
         closeChangelogModal();
       }
     });
+
+    // User Guide functionality
+    document.getElementById('user-guide-btn')?.addEventListener('click', showUserGuide);
+
+    function showUserGuide() {
+      const modal = document.getElementById('user-guide-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+      }
+    }
+
+    // Make closeUserGuide globally accessible
+    window.closeUserGuide = function() {
+      const modal = document.getElementById('user-guide-modal');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; // Restore background scroll
+      }
+    };
+
+    // Close user guide modal when clicking outside
+    document.addEventListener('click', (e) => {
+      const modal = document.getElementById('user-guide-modal');
+      if (e.target === modal) {
+        window.closeUserGuide();
+      }
+    });
   </script>
+
+  <!-- User Guide Modal -->
+  <div id="user-guide-modal" class="modal" style="display: none;">
+    <div class="modal-content user-guide-modal-content">
+      <div class="user-guide-header">
+        <h2>User Guide</h2>
+        <button onclick="window.closeUserGuide()" class="close-btn" aria-label="Close">&times;</button>
+      </div>
+      <div class="user-guide-body">
+        <section class="guide-section">
+          <h3>🏠 Getting Started</h3>
+          <p>The Seima Product Selector helps you build and share product selections from the Seima bathroom and kitchen range.</p>
+          <ul>
+            <li><strong>Select Products</strong> - Browse and search to find products</li>
+            <li><strong>View Selection</strong> - See all products you've added</li>
+            <li><strong>Clear Selection</strong> - Remove all products and start fresh</li>
+          </ul>
+        </section>
+
+        <section class="guide-section">
+          <h3>🔍 Finding Products</h3>
+          <p>Tap <strong>Select Products</strong> to browse the catalogue. You can:</p>
+          <ul>
+            <li>Search by product name (e.g., "basin", "toilet", "mixer")</li>
+            <li>Search by product code (e.g., "123456")</li>
+            <li>Scan barcodes in Seima showrooms</li>
+          </ul>
+        </section>
+
+        <section class="guide-section">
+          <h3>📷 Scanning Barcodes</h3>
+          <p>In a Seima showroom? Tap the <strong>Scan</strong> button to use your camera:</p>
+          <ul>
+            <li>Allow camera access when prompted</li>
+            <li>Point at the product barcode</li>
+            <li>Hold steady until recognised</li>
+          </ul>
+          <p><em>Tip: Ensure good lighting and hold 10-15cm from the barcode.</em></p>
+        </section>
+
+        <section class="guide-section">
+          <h3>➕ Adding Products</h3>
+          <p>When viewing a product:</p>
+          <ol>
+            <li>Adjust the <strong>quantity</strong> if needed</li>
+            <li>Select a <strong>room</strong> to organise your selection</li>
+            <li>Add any <strong>notes</strong> about this product</li>
+            <li>Tap <strong>Add to Selection</strong></li>
+          </ol>
+        </section>
+
+        <section class="guide-section">
+          <h3>📋 Viewing Your Selection</h3>
+          <p>Tap <strong>View Selection</strong> to see all products. You can:</p>
+          <ul>
+            <li>Change quantities</li>
+            <li>Move products between rooms</li>
+            <li>Edit notes</li>
+            <li>Remove products</li>
+          </ul>
+        </section>
+
+        <section class="guide-section">
+          <h3>📧 Sending Your Selection</h3>
+          <p>Ready to share? From the selection screen:</p>
+          <ol>
+            <li>Tap <strong>Send Email</strong></li>
+            <li>Enter your name, email, and project details</li>
+            <li>Choose options (hide pricing, include spreadsheet)</li>
+            <li>Tap <strong>Send</strong></li>
+          </ol>
+          <p>You'll receive a professional PDF presentation by email.</p>
+        </section>
+
+        <section class="guide-section">
+          <h3>⚙️ Settings</h3>
+          <p>Tap the gear icon (⚙️) to enter your contact details. These appear on your PDF presentation.</p>
+        </section>
+
+        <section class="guide-section">
+          <h3>💡 Tips</h3>
+          <ul>
+            <li>Your selection saves automatically in your browser</li>
+            <li>Send the email to yourself for a permanent copy</li>
+            <li>Add the app to your home screen for quick access</li>
+            <li>Use rooms to organise products by location</li>
+          </ul>
+        </section>
+
+        <section class="guide-section">
+          <h3>❓ Need Help?</h3>
+          <p>Visit <a href="https://www.seima.com.au" target="_blank" rel="noopener">www.seima.com.au</a> or contact your local Seima representative.</p>
+        </section>
+      </div>
+      <div class="user-guide-footer">
+        <button onclick="window.closeUserGuide()" class="primary-btn">Close</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html> 
