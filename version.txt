@@ -1,3 +1,6 @@
+5.2.2 - PDF Refactor: Consolidated PDF rendering into shared @seima/core module, fixed header logo aspect ratio, thinner footer for better layout balance
+5.2.1 - WELS Star Rating: Display WELS star rating in PDF and CSV exports, "Build with Confidence" tagline on cover page, fixed CSV parser for multi-line headers
+5.2.0 - User Guide & UX: Added interactive User Guide with close/scroll support, improved selection filtering by loggedInAs, staff logging fixes, email spinner timing, tagline update
 5.1.5 - PDF Speed Boost: Parallel image preloading (10 at a time) before PDF generation, cached images for instant access during rendering
 5.1.4 - PDF Optimization: Enabled compression, image deduplication with aliasing, smart PNG/JPEG format selection for diagrams, 3s timeout handling for faster generation
 5.1.3 - Search: Multi-word AND search support (e.g., "waste forest" finds products with both words)
