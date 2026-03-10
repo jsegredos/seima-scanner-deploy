@@ -431,6 +431,26 @@ import*as zbarWasm from"https://cdn.skypack.dev/@undecaf/zbar-wasm@0.9.15";impor
         background: #fef2f2;
       }
       
+      .user-menu-divider {
+        height: 1px;
+        background: #e5e7eb;
+        margin: 4px 8px;
+      }
+      
+      .user-menu-footer {
+        padding: 10px 16px;
+        border-top: 1px solid #e5e7eb;
+        font-size: 0.6875rem;
+        color: #9ca3af;
+        text-align: center;
+        cursor: pointer;
+        transition: color 0.15s ease;
+      }
+      
+      .user-menu-footer:hover {
+        color: #6b7280;
+      }
+      
       /* Loading Spinner */
       .auth-spinner {
         width: 20px;
