@@ -26,7 +26,7 @@
     }
   }
   </script>
-  <script type="module" crossorigin src="/assets/main-Bg3KAkEM.js"></script>
+  <script type="module" crossorigin src="/assets/main-bS2jPHNG.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/main-Da9r3pSs.css">
 </head>
 <body>
@@ -274,7 +274,7 @@
   
   <!-- Main application -->
   <script nomodule src="app.js"></script>
-  <div id="version-info" style="position:fixed;bottom:10px;left:0;right:0;text-align:center;font-size:0.98rem;color:#888;z-index:10;cursor:pointer;" onclick="showChangelogModal()">Ver: <span id="version-number">1.0.0</span></div>
+  <div id="version-info" style="position:fixed;bottom:10px;left:0;right:0;text-align:center;font-size:0.98rem;color:#888;z-index:10;cursor:pointer;" onclick="showChangelogModal()">Ver: <span id="version-number"></span></div>
   
   <!-- Changelog Modal -->
   <div id="changelog-modal" class="modal" style="display:none;">
@@ -291,20 +291,6 @@
   </div>
 
   <script>
-    // Load version from version.txt - parse new format (includes timestamp)
-    fetch('version.txt').then(r => r.text()).then(versionText => {
-      const lines = versionText.trim().split('\n');
-      if (lines.length > 0) {
-        // Get the latest version (first line) and extract version number with timestamp
-        const latestLine = lines[0];
-        // Match version number and optional timestamp: "4.0.2" or "4.0.2 (15:03)"
-        const versionMatch = latestLine.match(/^([\d.]+(?:\s*\([^)]+\))?)/);
-        if (versionMatch) {
-          document.getElementById('version-number').textContent = versionMatch[1];
-        }
-      }
-    });
-
     async function showChangelogModal() {
       try {
         const modal = document.getElementById('changelog-modal');
