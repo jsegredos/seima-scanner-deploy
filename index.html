@@ -12,6 +12,12 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Seima Showroom Scanner</title>
+  <!-- Resource hints for external origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://cdn.skypack.dev">
   <link rel="icon" type="image/png" href="/assets/seima-logo-Ij4HpjUg.png">
   <script type="importmap">
   {
@@ -20,7 +26,7 @@
     }
   }
   </script>
-  <script type="module" crossorigin src="/assets/main-BMjez_hf.js"></script>
+  <script type="module" crossorigin src="/assets/main-DcF3CyLJ.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/main-Da9r3pSs.css">
 </head>
 <body>
@@ -247,12 +253,12 @@
   </div>
   <!-- Barcode Detection API Polyfill for iOS Safari - Use Skypack CDN with proper CORS -->
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <!-- Tesseract.js for client-side OCR (Text Scan mode) -->
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
   <!-- Shared OCR utilities (classic script for main + worker use) -->
   <script src="js/ocr-utils.js"></script>
   
