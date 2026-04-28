@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="format-detection" content="telephone=no">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.skypack.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://productselector.seima.com.au https://*.workers.dev https://script.google.com https://script.googleusercontent.com https://docs.google.com https://*.googleusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com; worker-src 'self' blob:; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.skypack.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://productselector.seima.com.au https://*.workers.dev https://script.google.com https://script.googleusercontent.com https://docs.google.com https://*.googleusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdn.skypack.dev; worker-src 'self' blob:; base-uri 'self'; form-action 'self';">
   <title>Seima Showroom Scanner</title>
   <!-- Resource hints for external origins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
     }
   }
   </script>
-  <script type="module" crossorigin src="/assets/main-CkS02EQA.js"></script>
+  <script type="module" crossorigin src="/assets/main-NzfUlGsr.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/main-Da9r3pSs.css">
 </head>
 <body>
@@ -252,7 +252,7 @@
   <div id="pdf-spinner" class="pdf-spinner" style="display:none;">
     <div class="spinner" style="border-top-color: #2563eb;"></div>
   </div>
-  <!-- Barcode Detection API Polyfill for iOS Safari - Use Skypack CDN with proper CORS -->
+  <!-- Barcode Detection API Polyfill for iOS Safari - use pinned jsDelivr ESM builds -->
   
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" integrity="sha384-vuyrTV5nkscLp1knFvt+FIHfKKzmROBq5reruhMRslauj54mW+l2B8b6szMN6lCL" crossorigin="anonymous"></script>
