@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="format-detection" content="telephone=no">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.skypack.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://productselector.seima.com.au https://*.workers.dev https://script.google.com https://script.googleusercontent.com https://docs.google.com https://*.googleusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdn.skypack.dev; worker-src 'self' blob:; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.skypack.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://productselector.seima.com.au https://*.workers.dev https://script.google.com https://script.googleusercontent.com https://docs.google.com https://*.googleusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdn.skypack.dev; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';">
   <title>Seima Showroom Scanner</title>
   <!-- Resource hints for external origins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -308,6 +308,9 @@
           return;
         }
 
+        // Defensive HTML escape: version.txt is build-baked so it should be trusted,
+        // but escape anyway in case a future contributor inserts HTML by mistake.
+        const _esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
         let html = '';
         lines.forEach(line => {
           if (line.trim()) {
@@ -320,9 +323,9 @@
               html += `
                 <div style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h4 style="margin: 0; color: #a09484;">v${version}</h4>
+                    <h4 style="margin: 0; color: #a09484;">v${_esc(version)}</h4>
                   </div>
-                  <p style="margin: 10px 0; color: #555; line-height: 1.5;">${changelogText}</p>
+                  <p style="margin: 10px 0; color: #555; line-height: 1.5;">${_esc(changelogText)}</p>
                 </div>
               `;
             }
